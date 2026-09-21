@@ -23,222 +23,37 @@
       color: #172033;
     }
 
-    .interaction-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .interaction-card {
-      background: #ffffff;
-      border: 1px solid #e6e9ef;
-      border-radius: 18px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
-      overflow: hidden;
-    }
-
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 18px;
-      border-bottom: 1px solid #edf0f4;
-    }
-
-    .brand-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1b315b;
-    }
-
-    .status {
-      font-size: 12px;
-      color: #687386;
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border-bottom: 1px solid #edf0f4;
-    }
-
-    .action-btn {
-      border: 0;
-      background: #fff;
-      padding: 14px 8px;
-      cursor: pointer;
-      color: #445066;
-      font-size: 14px;
-      font-family: inherit;
-      transition: 0.2s ease;
-      border-left: 1px solid #edf0f4;
-    }
-
-    .action-btn:first-child {
-      border-left: 0;
-    }
-
-    .action-btn:hover {
-      background: #f7f9fc;
-    }
-
-    .action-btn.active {
-      color: #c62828;
-      background: #fff5f5;
-    }
-
-    .action-icon {
-      display: block;
-      font-size: 21px;
-      margin-bottom: 4px;
-    }
-
-    .count {
-      font-size: 12px;
-      color: #7a8495;
-    }
-
-    .action-btn.active .count {
-      color: #c62828;
-    }
-
-    .share-panel {
-      display: none;
-      padding: 14px 18px;
-      background: #fafbfc;
-      border-bottom: 1px solid #edf0f4;
-    }
-
-    .share-panel.show {
-      display: block;
-    }
-
-    .share-title {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .share-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .share-btn {
-      border: 1px solid #dfe4eb;
-      background: white;
-      border-radius: 10px;
-      padding: 9px 13px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 13px;
-    }
-
-    .share-btn:hover {
-      background: #f3f5f8;
-    }
-
-    .comments {
-      padding: 18px;
-    }
-
-    .comments-heading {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .comment-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .comment-input {
-      width: 100%;
-      min-height: 95px;
-      resize: vertical;
-      border: 1px solid #dce1e8;
-      border-radius: 12px;
-      padding: 12px;
-      font-family: inherit;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .comment-input:focus {
-      border-color: #496aa5;
-      box-shadow: 0 0 0 3px rgba(73, 106, 165, 0.1);
-    }
-
-    .comment-submit {
-      align-self: flex-start;
-      border: 0;
-      border-radius: 10px;
-      background: #1b315b;
-      color: white;
-      padding: 10px 18px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 14px;
-    }
-
-    .comment-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .comment-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .comment {
-      border: 1px solid #e5e8ee;
-      border-radius: 12px;
-      padding: 12px;
-      background: #fcfcfd;
-    }
-
-    .comment-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 7px;
-    }
-
-    .comment-user {
-      font-weight: 700;
-      font-size: 13px;
-      color: #31415f;
-    }
-
-    .comment-date {
-      font-size: 11px;
-      color: #8b94a3;
-    }
-
-    .comment-text {
-      font-size: 14px;
-      line-height: 1.8;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .delete-comment {
-      margin-top: 8px;
-      border: 0;
-      background: transparent;
-      color: #b42318;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 12px;
-      padding: 0;
-    }
-
+    .interaction-wrapper { width:100%; max-width:760px; margin:0 auto; }
+    .interaction-card { width:100%; background:#fff; border:1px solid #e3e7ee; border-radius:14px; box-shadow:0 4px 18px rgba(15,23,42,.06); overflow:hidden; }
+    .top-bar { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:44px; padding:9px 14px; border-bottom:1px solid #edf0f4; }
+    .brand-title { font-size:14px; font-weight:800; color:#1b315b; }
+    .status { font-size:11px; color:#687386; white-space:nowrap; }
+    .actions { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); width:100%; min-height:68px; border-bottom:1px solid #edf0f4; background:#fff; }
+    .action-btn { position:relative; display:flex; align-items:center; justify-content:center; gap:7px; min-width:0; height:68px; border:0; border-left:1px solid #edf0f4; background:#fff; padding:8px 6px; cursor:pointer; color:#475569; font-size:12px; font-weight:700; font-family:inherit; transition:background .18s ease,color .18s ease,transform .18s ease; }
+    .action-btn:first-child { border-left:0; }
+    .action-btn:hover { background:#f8fafc; color:#1b315b; }
+    .action-btn:active { transform:scale(.98); }
+    .action-btn.active { color:#c62828; background:#fff7f7; }
+    .action-icon { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; flex:0 0 28px; }
+    .action-icon svg { width:21px; height:21px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+    .action-label { white-space:nowrap; line-height:1; }
+    .count { display:inline-flex; align-items:center; justify-content:center; min-width:18px; height:18px; padding:0 5px; border-radius:999px; background:#f1f5f9; color:#64748b; font-size:10px; font-weight:800; line-height:1; }
+    .action-btn.active .count { background:#fee2e2; color:#c62828; }
+    .share-panel { display:none; padding:10px 14px; background:#f8fafc; border-bottom:1px solid #edf0f4; }
+    .share-panel.show { display:block; }
+    .share-title { margin-bottom:8px; font-size:12px; font-weight:800; color:#334155; }
+    .share-buttons { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
+    .share-btn { display:flex; align-items:center; justify-content:center; min-height:38px; border:1px solid #dfe4eb; background:#fff; border-radius:9px; padding:7px 8px; cursor:pointer; color:#334155; font-family:inherit; font-size:11px; font-weight:700; }
+    .share-btn:hover { background:#f1f5f9; border-color:#cbd5e1; }
+    .comments { display:none; padding:14px; }
+    .comments.show { display:block; }
+    .comments-heading { font-size:15px; font-weight:800; margin-bottom:11px; }
+    .comment-form { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+    .comment-input { width:100%; min-height:82px; resize:vertical; border:1px solid #dce1e8; border-radius:10px; padding:10px; font-family:inherit; font-size:13px; outline:none; }
+    .comment-input:focus { border-color:#496aa5; box-shadow:0 0 0 3px rgba(73,106,165,.1); }
+    .comment-submit { align-self:flex-start; border:0; border-radius:9px; background:#1b315b; color:#fff; padding:9px 15px; cursor:pointer; font-family:inherit; font-size:12px; font-weight:700; }
+    .comment-submit:disabled { opacity:.6; cursor:not-allowed; }
+    .comment-list { display:flex; flex-direction:column; gap:9px; }
     .empty {
       color: #8992a1;
       text-align: center;
@@ -269,27 +84,20 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 8px;
-      }
-
-      .actions {
-        grid-template-columns: repeat(5, 1fr);
-      }
-
-      .action-btn {
-        padding: 11px 3px;
-        font-size: 11px;
-      }
-
-      .action-icon {
-        font-size: 18px;
-      }
-
-      .comments {
-        padding: 14px;
-      }
+    @media (max-width:600px) {
+      body { padding:4px; }
+      .interaction-card { border-radius:11px; }
+      .top-bar { min-height:38px; padding:7px 10px; }
+      .brand-title { font-size:12px; }
+      .status { font-size:10px; }
+      .actions { min-height:60px; }
+      .action-btn { height:60px; flex-direction:column; gap:3px; padding:6px 2px; font-size:10px; }
+      .action-icon { width:24px; height:24px; flex-basis:24px; }
+      .action-icon svg { width:19px; height:19px; }
+      .count { min-width:16px; height:16px; font-size:9px; }
+      .share-buttons { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .comments { padding:11px; }
+    }
     }
   </style>
 </head>
@@ -306,35 +114,26 @@
     </div>
 
     <div class="actions">
-
-      <button class="action-btn" id="likeBtn" type="button">
-        <span class="action-icon">❤️</span>
-        Like
-        <span class="count" id="likeCount">0</span>
+      <button class="action-btn" id="likeBtn" type="button" aria-label="Like">
+        <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.2-8.8 10.1-8.8 10.1S3.2 13.8 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2Z"/></svg></span>
+        <span class="action-label">Like</span><span class="count" id="likeCount">0</span>
       </button>
-
-      <button class="action-btn" id="commentBtn" type="button">
-        <span class="action-icon">💬</span>
-        Comment
-        <span class="count" id="commentCount">0</span>
+      <button class="action-btn" id="commentBtn" type="button" aria-label="Comment">
+        <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.5 8.5 0 0 1-4.1-1L4 19l1.2-3.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg></span>
+        <span class="action-label">Comment</span><span class="count" id="commentCount">0</span>
       </button>
-
-      <button class="action-btn" id="shareBtn" type="button">
-        <span class="action-icon">🔗</span>
-        Share
+      <button class="action-btn" id="shareBtn" type="button" aria-label="Share">
+        <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.5-4.3M8.2 13.2l7.5 4.3"/></svg></span>
+        <span class="action-label">Share</span>
       </button>
-
-      <button class="action-btn" id="saveBtn" type="button">
-        <span class="action-icon">🔖</span>
-        Save
+      <button class="action-btn" id="saveBtn" type="button" aria-label="Save">
+        <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4.5A2.5 2.5 0 0 1 8.5 2h7A2.5 2.5 0 0 1 18 4.5V21l-6-3-6 3Z"/></svg></span>
+        <span class="action-label">Save</span>
       </button>
-
-      <button class="action-btn" type="button">
-        <span class="action-icon">👁️</span>
-        Views
-        <span class="count" id="viewCount">0</span>
+      <button class="action-btn" type="button" aria-label="Views">
+        <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+        <span class="action-label">Views</span><span class="count" id="viewCount">0</span>
       </button>
-
     </div>
 
     <div class="share-panel" id="sharePanel">
@@ -470,7 +269,7 @@
    */
 
   const ARTICLE_URL =
-    "PASTE_YOUR_GOOGLE_SITES_NEWS_ARTICLE_URL_HERE";
+    "https://sites.google.com/view/sachkiawaz/%D9%87%D9%88%D9%85";
 
 
   /* =========================================================
@@ -1271,17 +1070,14 @@
   commentBtn.addEventListener(
     "click",
     () => {
-
-      commentsSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-      setTimeout(
-        () => commentInput.focus(),
-        500
-      );
-
+      const isOpen = commentsSection.classList.toggle("show");
+      if (isOpen) {
+        commentsSection.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest"
+        });
+        setTimeout(() => commentInput.focus(), 250);
+      }
     }
   );
 
