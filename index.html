@@ -29,6 +29,27 @@
     .brand-title { font-size:14px; font-weight:800; color:#1b315b; }
     .status { font-size:11px; color:#687386; white-space:nowrap; }
 
+    /* Classic editable creator home card */
+    .post-profile{padding:18px;background:linear-gradient(145deg,#fffdf7,#fff 60%,#fbf5e5);border-bottom:1px solid #e7d7a7}
+    .profile-line{display:flex;align-items:center;gap:12px}
+    .profile-avatar{width:58px;height:58px;flex:0 0 58px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 28% 22%,#d51b25,#62060c 78%);border:3px solid #e3b82f;box-shadow:0 0 0 3px #fff,0 4px 12px #3b1c0d2b,inset 0 0 0 2px #ffe58a33;color:#ffe17a;font-weight:900;font-size:20px}
+    .profile-avatar img{width:100%;height:100%;object-fit:cover}
+    .profile-meta{flex:1;min-width:0}.profile-name{color:#51090e;font-size:16px;font-weight:900;line-height:1.6}
+    .profile-subline,.profile-email{font-size:11px;color:#82704c;line-height:1.8;overflow-wrap:anywhere}
+    .edit-post-btn{flex:0 0 auto;border:1px solid #d7b34c;border-radius:999px;background:linear-gradient(#fffdf5,#f7e8b7);color:#5b090e;padding:8px 15px;font:700 12px Arial,sans-serif;cursor:pointer;box-shadow:0 2px 0 #d7b34c,0 4px 8px #2b160d12}
+    .post-copy{white-space:pre-wrap;overflow-wrap:anywhere;padding:15px 2px 4px;color:#2b241b;font-size:15px;line-height:2}
+    .post-media{margin-top:12px;border:1px solid #e0c777;border-radius:13px;overflow:hidden;background:#160b09;box-shadow:0 5px 16px #24140718}
+    .post-media img,.post-media video{display:block;width:100%;max-height:560px;object-fit:contain;background:#160b09}
+    .editor-panel{display:none;padding:17px;background:linear-gradient(145deg,#2b1712,#180b09);border-bottom:1px solid #d4ad37;color:#fff4d1}
+    .editor-panel.open{display:block}.editor-heading{display:flex;justify-content:space-between;gap:8px;color:#f3d260;font-weight:900;font-size:16px;margin-bottom:14px}
+    .editor-heading span{font-size:10px;color:#c6b28a;font-weight:500}
+    .editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .editor-panel label{display:block;margin:10px 0 5px;color:#f0dba7;font-size:12px;font-weight:700}
+    .editor-panel input,.editor-panel textarea,.editor-panel select{display:block;width:100%;margin-top:6px;padding:10px 11px;border:1px solid #9c7837;border-radius:9px;background:#fffaf0;color:#2b1a0e;font:13px Arial,sans-serif;outline:none}
+    .editor-panel textarea{min-height:110px;resize:vertical;font-family:inherit;line-height:1.8}.editor-panel input[type=file]{font-size:11px;padding:8px}
+    .editor-actions{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}.editor-actions button{padding:10px 15px;border-radius:9px;border:1px solid #c5a24a;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+    .editor-save{background:linear-gradient(#d9b63f,#a77a13);color:#211508;box-shadow:0 3px 0 #68480a}.editor-cancel,.editor-reset{background:#21120e;color:#f6e6b7}
+    .editor-note{margin:13px 0 0;font-size:11px;line-height:1.8;color:#c8b58f}
     .create-post { display:flex; align-items:center; gap:11px; padding:14px; border-bottom:1px solid #edf0f4; background:linear-gradient(135deg,#fffdf6,#fff); }
     .creator-avatar { width:44px; height:44px; flex:0 0 44px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid #c9a227; background:radial-gradient(circle at 30% 25%,#b71920,#65070c 75%); color:#ffe27a; font-size:17px; font-weight:900; box-shadow:0 2px 7px rgba(20,20,20,.16),inset 0 0 0 2px rgba(255,215,90,.2); }
     .create-post-field { display:flex; align-items:center; justify-content:space-between; gap:10px; flex:1; min-width:0; min-height:48px; padding:7px 13px 7px 9px; border:1px solid #e2d6a7; border-radius:999px; background:#fff; box-shadow:inset 0 1px 3px rgba(15,23,42,.04),0 2px 7px rgba(15,23,42,.04); color:#8a8f99; }
@@ -97,6 +118,10 @@
       body { padding:4px; }
       .interaction-card { border-radius:11px; }
       .top-bar { min-height:38px; padding:7px 10px; }
+      .post-profile{padding:13px 11px}.profile-avatar{width:47px;height:47px;flex-basis:47px;font-size:17px}
+      .profile-name{font-size:14px}.profile-subline,.profile-email{font-size:10px}.post-copy{font-size:14px;padding-top:12px}
+      .edit-post-btn{padding:7px 10px;font-size:11px}.editor-panel{padding:13px 11px}.editor-grid{grid-template-columns:1fr;gap:2px}
+      .editor-heading{font-size:14px}.editor-actions{gap:7px}.editor-actions button{flex:1;padding:10px 8px}
       .create-post { gap:8px; padding:10px; }\n      .creator-avatar { width:38px; height:38px; flex-basis:38px; font-size:15px; }\n      .create-post-field { min-height:43px; padding:6px 10px; }\n      .create-post-placeholder { font-size:12px; }\n      .composer-tools { gap:6px; }\n      .composer-tool { width:23px; height:23px; }\n      .composer-tool svg { width:19px; height:19px; }
       .brand-title { font-size:12px; }
       .status { font-size:10px; }
@@ -123,6 +148,32 @@
       <div class="status" id="status">Connecting...</div>
     </div>
 
+    <section class="post-profile" aria-label="Sach Ki Awaz post">
+      <div class="profile-line"><div class="profile-avatar" id="profileAvatar">سچ</div><div class="profile-meta">
+        <div class="profile-name" id="profileName">روزنامہ سچ کی آواز</div>
+        <div class="profile-subline" id="profileSubline">Official Creator Profile · سچ کی آواز</div>
+        <div class="profile-email" id="profileEmail">nawazenterprises.pk@gmail.com</div>
+      </div><button class="edit-post-btn" id="openEditor" type="button">✎ Edit</button></div>
+      <div class="post-copy" id="postCopy">سچ کی آواز میں خوش آمدید۔ یہاں اپنی پوسٹ، خبر یا پیغام شامل کریں۔</div>
+      <div class="post-media" id="postMedia" hidden></div>
+    </section>
+    <section class="editor-panel" id="editorPanel" aria-label="Edit home page post">
+      <div class="editor-heading">✦ ہوم پیج ایڈیٹر <span>Classic Creator Studio</span></div>
+      <div class="editor-grid">
+        <label>Profile Name<input id="editProfileName" type="text" maxlength="90" placeholder="روزنامہ سچ کی آواز"></label>
+        <label>Profile Subtitle<input id="editProfileSubline" type="text" maxlength="140" placeholder="Official Creator Profile"></label>
+        <label>Email / Contact<input id="editProfileEmail" type="email" maxlength="140" placeholder="your@email.com"></label>
+        <label>Profile Photo<input id="editProfilePhoto" type="file" accept="image/*"></label>
+      </div>
+      <label>Post Text / Caption<textarea id="editPostText" maxlength="5000" placeholder="اپنی پوسٹ یا پیغام یہاں لکھیں..."></textarea></label>
+      <div class="editor-grid">
+        <label>Media Type<select id="editMediaType"><option value="none">No media</option><option value="image">Image</option><option value="video">Video</option></select></label>
+        <label>Media URL<input id="editMediaUrl" type="url" placeholder="https://... (image/video URL)"></label>
+        <label>Upload Post Image<input id="editMediaFile" type="file" accept="image/*"></label>
+      </div>
+      <div class="editor-actions"><button type="button" class="editor-cancel" id="cancelEditor">Cancel</button><button type="button" class="editor-reset" id="resetEditor">Reset</button><button type="button" class="editor-save" id="saveEditor">Save Home Page</button></div>
+      <p class="editor-note">یہ ایڈیٹر تبدیلیاں اسی براؤزر میں محفوظ کرتا ہے۔ تمام وزیٹرز کے لیے شائع کرنے کے لیے Firebase Admin publishing کنکشن الگ سے درکار ہوگا۔</p>
+    </section>
     <div class="create-post" aria-label="Create a post">
       <div class="creator-avatar" role="img" aria-label="Sach Ki Awaz logo">سچ</div>
       <div class="create-post-field" role="textbox" aria-label="Create a post">
@@ -1218,6 +1269,31 @@ function getArticleUrl() {
   /* =========================================================
      14. START
      ========================================================= */
+
+  /* HOME PAGE EDITOR: browser-local customization */
+  const HOME_KEY="sachKiAwazHomePageClassicV1";
+  const homeDefaults={profileName:"روزنامہ سچ کی آواز",subline:"Official Creator Profile · سچ کی آواز",email:"nawazenterprises.pk@gmail.com",caption:"سچ کی آواز میں خوش آمدید۔ یہاں اپنی پوسٹ، خبر یا پیغام شامل کریں۔",mediaType:"none",mediaUrl:"",profilePhoto:""};
+  const he=id=>document.getElementById(id);
+  function homeData(){try{return{...homeDefaults,...(JSON.parse(localStorage.getItem(HOME_KEY))||{})}}catch{return{...homeDefaults}}}
+  function paintHome(d){
+    he("profileName").textContent=d.profileName||homeDefaults.profileName;
+    he("profileSubline").textContent=d.subline||"";he("profileEmail").textContent=d.email||"";he("postCopy").textContent=d.caption||"";
+    const av=he("profileAvatar");av.innerHTML="";
+    if(d.profilePhoto){const im=document.createElement("img");im.src=d.profilePhoto;im.alt="Creator profile";av.appendChild(im)}else av.textContent="سچ";
+    const media=he("postMedia");media.innerHTML="";media.hidden=true;
+    if(d.mediaUrl&&d.mediaType!=="none"){const el=document.createElement(d.mediaType==="video"?"video":"img");el.src=d.mediaUrl;el.alt="Post media";if(d.mediaType==="video"){el.controls=true;el.playsInline=true}media.appendChild(el);media.hidden=false}
+  }
+  function fillEditor(d){he("editProfileName").value=d.profileName||"";he("editProfileSubline").value=d.subline||"";he("editProfileEmail").value=d.email||"";he("editPostText").value=d.caption||"";he("editMediaType").value=d.mediaType||"none";he("editMediaUrl").value=d.mediaUrl||""}
+  function readEditor(){const old=homeData();return{profileName:he("editProfileName").value.trim()||homeDefaults.profileName,subline:he("editProfileSubline").value.trim(),email:he("editProfileEmail").value.trim(),caption:he("editPostText").value.trim(),mediaType:he("editMediaType").value,mediaUrl:he("editMediaUrl").value.trim(),profilePhoto:window.__homeProfilePhoto!==undefined?window.__homeProfilePhoto:old.profilePhoto}}
+  function openEditor(){fillEditor(homeData());he("editorPanel").classList.add("open");he("editorPanel").scrollIntoView({behavior:"smooth",block:"nearest"})}
+  he("openEditor").addEventListener("click",openEditor);
+  document.querySelector(".create-post-field").addEventListener("click",openEditor);
+  he("cancelEditor").addEventListener("click",()=>he("editorPanel").classList.remove("open"));
+  he("editProfilePhoto").addEventListener("change",e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(file.size>3*1024*1024){showMessage("Profile photo 3 MB سے کم رکھیں۔");e.target.value="";return}const rd=new FileReader();rd.onload=()=>{window.__homeProfilePhoto=rd.result};rd.readAsDataURL(file)});
+  he("editMediaFile").addEventListener("change",e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(file.size>3*1024*1024){showMessage("تصویر 3 MB سے کم رکھیں یا Media URL استعمال کریں۔");e.target.value="";return}const rd=new FileReader();rd.onload=()=>{he("editMediaType").value="image";he("editMediaUrl").value=rd.result};rd.readAsDataURL(file)});
+  he("saveEditor").addEventListener("click",()=>{const d=readEditor();try{localStorage.setItem(HOME_KEY,JSON.stringify(d));paintHome(d);he("editorPanel").classList.remove("open");window.__homeProfilePhoto=undefined;showMessage("ہوم پیج کی تبدیلی اس براؤزر میں محفوظ ہو گئی۔")}catch(err){showMessage("محفوظ نہیں ہو سکا۔ تصویر کا سائز کم کریں۔")}});
+  he("resetEditor").addEventListener("click",()=>{localStorage.removeItem(HOME_KEY);window.__homeProfilePhoto=undefined;fillEditor(homeDefaults);paintHome(homeDefaults);showMessage("ہوم پیج ڈیفالٹ ڈیزائن پر واپس آ گیا۔")});
+  paintHome(homeData());
 
   startAnonymousLogin();
 
