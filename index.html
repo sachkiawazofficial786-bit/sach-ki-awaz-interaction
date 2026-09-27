@@ -50,6 +50,12 @@
     .editor-actions{display:flex;gap:9px;margin-top:15px;flex-wrap:wrap}.editor-actions button{padding:10px 15px;border-radius:9px;border:1px solid #c5a24a;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
     .editor-save{background:linear-gradient(#d9b63f,#a77a13);color:#211508;box-shadow:0 3px 0 #68480a}.editor-cancel,.editor-reset{background:#21120e;color:#f6e6b7}
     .editor-note{margin:13px 0 0;font-size:11px;line-height:1.8;color:#c8b58f}
+    .upload-status{min-height:18px;margin-top:12px;color:#f5d878;font-size:12px;line-height:1.6}
+    .upload-track{height:7px;margin-top:7px;border-radius:99px;overflow:hidden;background:#4b3823;border:1px solid #a17b30}
+    .upload-progress{width:0;height:100%;background:linear-gradient(90deg,#c49b23,#ffe477);transition:width .15s}
+    .editor-save:disabled{opacity:.65;cursor:wait;filter:grayscale(.3)}
+    .post-media video{max-height:520px}
+
     .create-post { display:flex; align-items:center; gap:11px; padding:14px; border-bottom:1px solid #edf0f4; background:linear-gradient(135deg,#fffdf6,#fff); }
     .creator-avatar { width:44px; height:44px; flex:0 0 44px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid #c9a227; background:radial-gradient(circle at 30% 25%,#b71920,#65070c 75%); color:#ffe27a; font-size:17px; font-weight:900; box-shadow:0 2px 7px rgba(20,20,20,.16),inset 0 0 0 2px rgba(255,215,90,.2); }
     .create-post-field { display:flex; align-items:center; justify-content:space-between; gap:10px; flex:1; min-width:0; min-height:48px; padding:7px 13px 7px 9px; border:1px solid #e2d6a7; border-radius:999px; background:#fff; box-shadow:inset 0 1px 3px rgba(15,23,42,.04),0 2px 7px rgba(15,23,42,.04); color:#8a8f99; }
@@ -160,17 +166,19 @@
     <section class="editor-panel" id="editorPanel" aria-label="Edit home page post">
       <div class="editor-heading">✦ ہوم پیج ایڈیٹر <span>Classic Creator Studio</span></div>
       <div class="editor-grid">
-        <label>Profile Name<input id="editProfileName" type="text" maxlength="90" placeholder="روزنامہ سچ کی آواز"></label>
-        <label>Profile Subtitle<input id="editProfileSubline" type="text" maxlength="140" placeholder="Official Creator Profile"></label>
-        <label>Email / Contact<input id="editProfileEmail" type="email" maxlength="140" placeholder="your@email.com"></label>
-        <label>Profile Photo<input id="editProfilePhoto" type="file" accept="image/*"></label>
+        <label>Username / Creator Name<input id="editProfileName" type="text" maxlength="90" placeholder="روزنامہ سچ کی آواز"></label>
+        <label>Profile Tagline<input id="editProfileSubline" type="text" maxlength="140" placeholder="Official Creator Profile"></label>
+        <label>Contact Email<input id="editProfileEmail" type="email" maxlength="140" placeholder="contact@example.com"></label>
+        <label>Profile Photo (JPG, PNG, WebP)<input id="editProfilePhoto" type="file" accept="image/jpeg,image/png,image/webp"></label>
       </div>
       <label>Post Text / Caption<textarea id="editPostText" maxlength="5000" placeholder="اپنی پوسٹ یا پیغام یہاں لکھیں..."></textarea></label>
       <div class="editor-grid">
-        <label>Media Type<select id="editMediaType"><option value="none">No media</option><option value="image">Image</option><option value="video">Video</option></select></label>
-        <label>Media URL<input id="editMediaUrl" type="url" placeholder="https://... (image/video URL)"></label>
-        <label>Upload Post Image<input id="editMediaFile" type="file" accept="image/*"></label>
+        <label>Post Media Type<select id="editMediaType"><option value="none">No media</option><option value="image">Image</option><option value="video">Video</option></select></label>
+        <label>Media URL (optional)<input id="editMediaUrl" type="url" placeholder="https://..."></label>
+        <label>Upload Image or Video<input id="editMediaFile" type="file" accept="image/*,video/mp4,video/webm,video/quicktime"></label>
       </div>
+      <div class="upload-status" id="uploadStatus" role="status" aria-live="polite"></div>
+      <div class="upload-track" id="uploadTrack" hidden><div class="upload-progress" id="uploadProgress"></div></div>
       <div class="editor-actions"><button type="button" class="editor-cancel" id="cancelEditor">Cancel</button><button type="button" class="editor-reset" id="resetEditor">Reset</button><button type="button" class="editor-save" id="saveEditor">Save Home Page</button></div>
       <p class="editor-note">یہ ایڈیٹر تبدیلیاں اسی براؤزر میں محفوظ کرتا ہے۔ تمام وزیٹرز کے لیے شائع کرنے کے لیے Firebase Admin publishing کنکشن الگ سے درکار ہوگا۔</p>
     </section>
@@ -283,6 +291,8 @@
     onAuthStateChanged
   } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+  import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
   import {
     getFirestore,
     collection,
@@ -356,6 +366,7 @@
 
   const db =
     getFirestore(app);
+  const storage = getStorage(app);
 
 
   let currentUser = null;
@@ -1289,9 +1300,58 @@ function getArticleUrl() {
   he("openEditor").addEventListener("click",openEditor);
   document.querySelector(".create-post-field").addEventListener("click",openEditor);
   he("cancelEditor").addEventListener("click",()=>he("editorPanel").classList.remove("open"));
-  he("editProfilePhoto").addEventListener("change",e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(file.size>3*1024*1024){showMessage("Profile photo 3 MB سے کم رکھیں۔");e.target.value="";return}const rd=new FileReader();rd.onload=()=>{window.__homeProfilePhoto=rd.result};rd.readAsDataURL(file)});
-  he("editMediaFile").addEventListener("change",e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(file.size>3*1024*1024){showMessage("تصویر 3 MB سے کم رکھیں یا Media URL استعمال کریں۔");e.target.value="";return}const rd=new FileReader();rd.onload=()=>{he("editMediaType").value="image";he("editMediaUrl").value=rd.result};rd.readAsDataURL(file)});
-  he("saveEditor").addEventListener("click",()=>{const d=readEditor();try{localStorage.setItem(HOME_KEY,JSON.stringify(d));paintHome(d);he("editorPanel").classList.remove("open");window.__homeProfilePhoto=undefined;showMessage("ہوم پیج کی تبدیلی اس براؤزر میں محفوظ ہو گئی۔")}catch(err){showMessage("محفوظ نہیں ہو سکا۔ تصویر کا سائز کم کریں۔")}});
+  function validateUpload(file, kind) {
+    if (!file) return "";
+    if (kind === "profile" && !["image/jpeg","image/png","image/webp"].includes(file.type)) return "پروفائل تصویر JPG, PNG یا WebP ہونی چاہیے۔";
+    if (kind === "media" && !file.type.startsWith("image/") && !["video/mp4","video/webm","video/quicktime"].includes(file.type)) return "صرف تصویر یا MP4, WebM, MOV ویڈیو منتخب کریں۔";
+    const max = kind === "profile" ? 5*1024*1024 : (file.type.startsWith("video/") ? 100*1024*1024 : 12*1024*1024);
+    if (file.size > max) return kind === "profile" ? "Profile photo کی حد 5 MB ہے۔" : (file.type.startsWith("video/") ? "ویڈیو کی حد 100 MB ہے۔" : "تصویر کی حد 12 MB ہے۔");
+    return "";
+  }
+  function setUploadStatus(text, pct=null) {
+    he("uploadStatus").textContent=text;
+    he("uploadTrack").hidden=pct===null;
+    if(pct!==null) he("uploadProgress").style.width=Math.max(0,Math.min(100,pct))+"%";
+  }
+  function uploadFileToStorage(file, folder) {
+    return new Promise((resolve,reject)=>{
+      if(!currentUser){reject(new Error("Authentication ابھی مکمل نہیں ہوئی۔"));return;}
+      const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_").slice(-90)||"upload";
+      const path=folder+"/"+currentUser.uid+"/"+Date.now()+"_"+safeName;
+      const task=uploadBytesResumable(storageRef(storage,path),file,{contentType:file.type});
+      task.on("state_changed",snap=>{
+        const pct=snap.totalBytes?Math.round(snap.bytesTransferred/snap.totalBytes*100):0;
+        setUploadStatus("فائل اپلوڈ ہو رہی ہے: "+pct+"%");
+        he("uploadTrack").hidden=false;he("uploadProgress").style.width=pct+"%";
+      },reject,async()=>{try{resolve(await getDownloadURL(task.snapshot.ref));}catch(err){reject(err);}});
+    });
+  }
+  he("editProfilePhoto").addEventListener("change",e=>{
+    const file=e.target.files&&e.target.files[0];if(!file)return;
+    const error=validateUpload(file,"profile");if(error){showMessage(error);e.target.value="";return;}
+    window.__pendingProfilePhoto=file;setUploadStatus("Profile photo تیار ہے؛ Save Home Page دبائیں۔",0);
+  });
+  he("editMediaFile").addEventListener("change",e=>{
+    const file=e.target.files&&e.target.files[0];if(!file)return;
+    const error=validateUpload(file,"media");if(error){showMessage(error);e.target.value="";return;}
+    window.__pendingPostMedia=file;he("editMediaType").value=file.type.startsWith("video/")?"video":"image";
+    he("editMediaUrl").value="";setUploadStatus("Media فائل منتخب ہو گئی؛ Save Home Page دبائیں تاکہ اپلوڈ ہو۔",0);
+  });
+  he("saveEditor").addEventListener("click",async()=>{
+    const button=he("saveEditor");button.disabled=true;
+    try{
+      const d=readEditor();
+      if(window.__pendingProfilePhoto){setUploadStatus("پروفائل تصویر اپلوڈ ہو رہی ہے…",0);d.profilePhoto=await uploadFileToStorage(window.__pendingProfilePhoto,"creator-profile");}
+      if(window.__pendingPostMedia){setUploadStatus("پوسٹ کی تصویر/ویڈیو اپلوڈ ہو رہی ہے…",0);d.mediaUrl=await uploadFileToStorage(window.__pendingPostMedia,"creator-media");}
+      if(d.mediaType==="none")d.mediaUrl="";
+      localStorage.setItem(HOME_KEY,JSON.stringify(d));paintHome(d);he("editorPanel").classList.remove("open");
+      window.__pendingProfilePhoto=null;window.__pendingPostMedia=null;window.__homeProfilePhoto=undefined;
+      he("editProfilePhoto").value="";he("editMediaFile").value="";
+      setUploadStatus("محفوظ ہو گیا۔ Media Firebase Storage میں اپلوڈ ہے؛ پروفائل/پوسٹ کی سیٹنگ اس براؤزر میں محفوظ ہے۔",100);
+      showMessage("پروفائل اور پوسٹ کی تبدیلی محفوظ ہو گئی۔");
+    }catch(err){console.error("Home editor upload error:",err);setUploadStatus(err?.code==="storage/unauthorized"?"Firebase Storage اجازت نہیں دے رہا۔ Storage Rules چیک کریں۔":"اپلوڈ/محفوظ نہیں ہو سکا۔ Firebase Storage سیٹ اپ چیک کریں۔");showMessage("تبدیلی محفوظ نہیں ہو سکی۔");}
+    finally{button.disabled=false;}
+  });
   he("resetEditor").addEventListener("click",()=>{localStorage.removeItem(HOME_KEY);window.__homeProfilePhoto=undefined;fillEditor(homeDefaults);paintHome(homeDefaults);showMessage("ہوم پیج ڈیفالٹ ڈیزائن پر واپس آ گیا۔")});
   paintHome(homeData());
 
