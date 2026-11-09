@@ -145,7 +145,7 @@
 
 <body>
 
-<div class="interaction-wrapper">
+<div class="interaction-wrapper" hidden>
 
   <div class="interaction-card">
 
@@ -497,18 +497,34 @@
     auth,
     async (user) => {
 
-      if (user) {
+      if (!user) {
+        return;
+      }
 
-        currentUser =
-          user;
+      currentUser = user;
 
-        status.textContent =
-          "Connected";
+      try {
+        // Public interaction card is available only for published articles.
+        const articleRef = doc(db, "articles", ARTICLE_ID);
+        const articleSnapshot = await getDoc(articleRef);
+
+        if (!articleSnapshot.exists() ||
+            articleSnapshot.data().status !== "published") {
+          status.textContent = "Not published";
+          showMessage("یہ خبر ابھی شائع نہیں ہوئی۔");
+          return;
+        }
+
+        document.querySelector(".interaction-wrapper").hidden = false;
+        status.textContent = "Connected";
 
         await loadAll();
-
         await registerView();
 
+      } catch (error) {
+        console.error("Article publication check failed:", error);
+        status.textContent = "Not available";
+        showMessage("یہ خبر شائع نہیں یا فی الحال دستیاب نہیں۔");
       }
 
     }
